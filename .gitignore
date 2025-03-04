@@ -1,0 +1,94 @@
+# ----------------------
+# OS-Specific Files
+# ----------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------
+# Logs and Temporary Files
+# ----------------------
+*.log
+*.out
+*.tmp
+*.swp
+*.swo
+
+# ----------------------
+# AWS
+# ----------------------
+# Ignore AWS credential or config files if accidentally placed here
+.aws/
+.aws-credentials
+
+# ----------------------
+# Terraform
+# ----------------------
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+.terraform/
+.terraform.lock.hcl
+crash.log
+
+# ----------------------
+# Jenkins
+# ----------------------
+# Jenkins typically stores data on its own server, 
+# so you usually don't commit Jenkins job configs to your repo.
+# If you have a "jenkins_home" folder for local dev, ignore it:
+jenkins_home/
+
+# ----------------------
+# Ansible
+# ----------------------
+# If you use Roles downloaded via ansible-galaxy, you might ignore them:
+roles/  
+# Also, any Vault files that are encrypted can be omitted, 
+# but be careful with secrets in general:
+*.vault
+
+# ----------------------
+# Docker
+# ----------------------
+# Docker build files or temporary build artifacts:
+docker-build/
+*.tar
+*.img
+container/
+
+# ----------------------
+# Kubernetes
+# ----------------------
+# Ignore local config files or K8s ephemeral files
+kube-config.yaml
+.kube/
+
+# ----------------------
+# GitOps
+# ----------------------
+# You may have GitOps configurations that generate temporary files, 
+# but these are project-specific. List them here if necessary.
+
+# ----------------------
+# Python Environments (if you use Python scripts)
+# ----------------------
+__pycache__/
+*.pyc
+venv/
+env/
+
+# ----------------------
+# Node.js/Frontend (if applicable)
+# ----------------------
+node_modules/
+dist/
+build/
+
+# ----------------------
+# General Secrets & Credentials
+# ----------------------
+*.env
+.env.*
+secret.*
+credentials.*
