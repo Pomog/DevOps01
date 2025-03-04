@@ -35,7 +35,7 @@ mkdir ubuntu
 ```GitBash
 cd centos
 ```
-- to find Vagrant Box ![alt](https://portal.cloud.hashicorp.com/vagrant/discover)
+- to find Vagrant Box (https://portal.cloud.hashicorp.com/vagrant/discover)
 ```GitBash
 vagrant init eurolinux-vagrant/centos-stream-9
 ```
@@ -63,7 +63,7 @@ vagrant halt
 ```GitBash
 cd ubuntu
 ```
-- to find Vagrant Box ![alt](https://portal.cloud.hashicorp.com/vagrant/discover)
+- to find Vagrant Box (https://portal.cloud.hashicorp.com/vagrant/discover)
 ```GitBash
 vagrant init ubuntu/jammy64
 ```
