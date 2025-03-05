@@ -67,3 +67,9 @@ cd ubuntu
 ```GitBash
 vagrant init ubuntu/jammy64
 ```
+
+## CentOS Stream is a Red Hat–based distribution that uses dnf
+- System maintenance on CentOS Stream
+```bash
+sudo dnf upgrade --refresh -y && sudo dnf autoremove -y && sudo dnf clean all
+```
