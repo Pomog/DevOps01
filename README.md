@@ -73,3 +73,14 @@ vagrant init ubuntu/jammy64
 ```bash
 sudo dnf upgrade --refresh -y && sudo dnf autoremove -y && sudo dnf clean all
 ```
+
+## Journald logs (systemd):
+Instead of storing everything in plain-text log files, Ubuntu also uses systemd-journald to collect system logs.
+You can see these logs by using the journalctl command. For example:
+```bash
+sudo journalctl -xe
+```
+Or filtering by a specific service:
+```bash
+sudo journalctl -u <service-name>
+```
