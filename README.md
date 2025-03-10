@@ -84,3 +84,18 @@ Or filtering by a specific service:
 ```bash
 sudo journalctl -u <service-name>
 ```
+
+## Runlevels of SysV
+- Runlevel 0: Shutdown the system.
+- Runlevel 1: Single-user mode (often used for system maintenance). Only the root user is allowed, and many services (like networking) are not started.
+- Runlevel 2: Multi-user mode without networking.
+- Runlevel 3: Multi-user mode with networking.
+- Runlevel 4: Reserved for local administration or could be customized for specific needs. In many distributions, runlevel 4 is essentially the same as runlevel 3.
+- Runlevel 5: Multi-user mode with networking and with a graphical desktop environment.
+- Runlevel 6: Reboot the system.
+
+```bash
+/etc/systemd/system/multi-user.target.wants/
+```
+- This dir is used by systemd to manage which services are started when the system reaches the multi-user target (roughly equivalent to the traditional runlevel 3 in SysV init systems)
+- multi-user.target in systemd is roughly equivalent to runlevel 3 in SysV init. It starts all the necessary services for a multi-user, non-graphical environment.
