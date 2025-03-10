@@ -99,3 +99,14 @@ sudo journalctl -u <service-name>
 ```
 - This dir is used by systemd to manage which services are started when the system reaches the multi-user target (roughly equivalent to the traditional runlevel 3 in SysV init systems)
 - multi-user.target in systemd is roughly equivalent to runlevel 3 in SysV init. It starts all the necessary services for a multi-user, non-graphical environment.
+
+
+## READ
+```bash
+man 7 signal
+```
+- Signals are used to communicate between processes or between the OS and a process. They can:
+✅ Stop a process
+✅ Restart a process
+✅ Terminate a process
+✅ Tell a process to reload its configuration
