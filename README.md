@@ -100,6 +100,15 @@ sudo journalctl -u <service-name>
 - This dir is used by systemd to manage which services are started when the system reaches the multi-user target (roughly equivalent to the traditional runlevel 3 in SysV init systems)
 - multi-user.target in systemd is roughly equivalent to runlevel 3 in SysV init. It starts all the necessary services for a multi-user, non-graphical environment.
 
+## Provisioning
+```
+   config.vm.provision "shell", inline: <<-SHELL
+     dnf update
+     dnf install httpd wget unzip git -y
+     mkdir /opt/devopsdir2
+     free -m
+   SHELL
+```
 
 ## READ
 ```bash
