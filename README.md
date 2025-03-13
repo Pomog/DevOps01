@@ -73,6 +73,10 @@ vagrant init ubuntu/jammy64
 ```bash
 sudo dnf upgrade --refresh -y && sudo dnf autoremove -y && sudo dnf clean all
 ```
+- System maintenance on Ubuntu
+```bash
+sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
+```
 
 ## Journald logs (systemd):
 Instead of storing everything in plain-text log files, Ubuntu also uses systemd-journald to collect system logs.
@@ -108,6 +112,26 @@ sudo journalctl -u <service-name>
      mkdir /opt/devopsdir2
      free -m
    SHELL
+```
+
+## Install and configure WordPress - Ubuntu Server 20.04 LTS
+- 
+```bash
+sudo apt update
+sudo apt install apache2 \
+                 ghostscript \
+                 libapache2-mod-php \
+                 mysql-server \
+                 php \
+                 php-bcmath \
+                 php-curl \
+                 php-imagick \
+                 php-intl \
+                 php-json \
+                 php-mbstring \
+                 php-mysql \
+                 php-xml \
+                 php-zip
 ```
 
 ## READ
