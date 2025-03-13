@@ -77,6 +77,47 @@ sudo dnf upgrade --refresh -y && sudo dnf autoremove -y && sudo dnf clean all
 ```bash
 sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 ```
+## Install WordPress
+the ownership to the user www-data, which is potentially insecure
+```bash
+sudo mkdir -p /srv/www
+sudo chown www-data: /srv/www
+curl https://wordpress.org/latest.tar.gz | sudo -u www-data tar zx -C /srv/www
+```
+- Configure Apache for WordPress
+```bash
+vim /etc/apache2/sites-available/wordpress.conf
+```
+```bash
+<VirtualHost *:80>
+    DocumentRoot /srv/www/wordpress
+    <Directory /srv/www/wordpress>
+        Options FollowSymLinks
+        AllowOverride Limit Options FileInfo
+        DirectoryIndex index.php
+        Require all granted
+    </Directory>
+    <Directory /srv/www/wordpress/wp-content>
+        Options FollowSymLinks
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+Enable the site with:
+```bash
+sudo a2ensite wordpress
+```
+Enable URL rewriting with:
+```bash
+sudo a2enmod rewrite
+```
+Disable the default “It Works” site with:
+```bash
+sudo a2dissite 000-default
+```
+```bash
+sudo service apache2 reload
+```
 
 ## Journald logs (systemd):
 Instead of storing everything in plain-text log files, Ubuntu also uses systemd-journald to collect system logs.
