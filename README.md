@@ -118,6 +118,40 @@ sudo a2dissite 000-default
 ```bash
 sudo service apache2 reload
 ```
+- Configure database
+```bash
+sudo mysql -u root
+CREATE DATABASE wordpress;
+CREATE USER wordpress@localhost IDENTIFIED BY '<your-password>';
+
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER ON wordpress.* TO wordpress@localhost;
+
+FLUSH PRIVILEGES;
+quit
+```
+- Configure WordPress to connect to the database
+```bash
+sudo -u www-data cp /srv/www/wordpress/wp-config-sample.php /srv/www/wordpress/wp-config.php
+```
+```bash
+sudo -u www-data sed -i 's/database_name_here/wordpress/' /srv/www/wordpress/wp-config.php
+sudo -u www-data sed -i 's/username_here/wordpress/' /srv/www/wordpress/wp-config.php
+sudo -u www-data sed -i 's/password_here/<your-password>/' /srv/www/wordpress/wp-config.php
+```
+```bash
+sudo -u www-data nano /srv/www/wordpress/wp-config.php
+```
+```
+define( 'AUTH_KEY',         'put your unique phrase here' );
+define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
+define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
+define( 'NONCE_KEY',        'put your unique phrase here' );
+define( 'AUTH_SALT',        'put your unique phrase here' );
+define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
+define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
+define( 'NONCE_SALT',       'put your unique phrase here' );
+```
+Delete those lines. Then replace with the content of https://api.wordpress.org/secret-key/1.1/salt/.
 
 ## Journald logs (systemd):
 Instead of storing everything in plain-text log files, Ubuntu also uses systemd-journald to collect system logs.
