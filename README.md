@@ -218,3 +218,7 @@ man 7 signal
 ✅ Restart a process
 ✅ Terminate a process
 ✅ Tell a process to reload its configuration
+
+```bash
+man systemd
+```
