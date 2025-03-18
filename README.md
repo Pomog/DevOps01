@@ -209,6 +209,26 @@ sudo apt install apache2 \
                  php-zip
 ```
 
+## Vagrant-hostmanager
+The vagrant-hostmanager plugin automates the management of your hosts file, ensuring that your virtual machines’ hostnames and IP addresses are always correctly mapped. This simplifies accessing your Vagrant environments by hostname instead of IP address, which is especially useful in multi-machine setups.
+
+### Key Features
+- Automatic Hosts File Updates:
+Automatically adds or removes entries in your /etc/hosts file (or its equivalent) as VMs are started, halted, or destroyed.
+
+- Multi-Machine Support:
+Works seamlessly with environments that include multiple VMs, ensuring that all hostnames are correctly configured.
+
+- Simplified Network Management:
+Eliminates the need for manual editing of the hosts file, reducing configuration errors and saving time.
+
+### Installation
+```bash
+vagrant plugin install vagrant-hostmanager
+```
+After installation, enable and configure the plugin within your Vagrantfile to suit your environment's needs. This setup allows for streamlined development and testing, as all your VMs are accessible by easily remembered names.
+
+
 ## READ
 ```bash
 man 7 signal
