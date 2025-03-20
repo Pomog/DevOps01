@@ -223,6 +223,10 @@ Works seamlessly with environments that include multiple VMs, ensuring that all 
 Eliminates the need for manual editing of the hosts file, reducing configuration errors and saving time.
 
 ### Installation
+- local setup
+```bash
+cd /f/devops01/local/blocal/vagrant/Manual_provisioning_WinMacIntel
+```
 ```bash
 vagrant plugin install vagrant-hostmanager
 ```
@@ -372,6 +376,127 @@ firewall-cmd --runtime-to-permanent
 sudo systemctl start rabbitmq-server
 sudo systemctl enable rabbitmq-server
 sudo systemctl status rabbitmq-server
+```
+## TOMCAT SETUP
+- Login to the tomcat vm
+```bash
+vagrant ssh app01
+```
+- Verify Hosts entry, if entries missing update the it with IP and hostnames
+```bash
+cat /etc/hosts
+```
+- Update OS with latest patches
+```bash
+dnf update -y
+```
+- Set Repository
+```bash
+dnf install epel-release -y
+```
+- Install Dependencies
+```bash
+dnf -y install java-17-openjdk java-17-openjdk-devel
+dnf install git wget -y
+```
+- Change dir to /tmp
+```bash
+cd /tmp/
+```
+- Download & Tomcat Package
+```bash
+wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.26/bin/apache-tomcat-10.1.26.tar.gz
+tar -xzvf apache-tomcat-10.1.26.tar.gz
+```
+- Add tomcat user
+```bash
+useradd --home-dir /usr/local/tomcat --shell /sbin/nologin tomcat
+```
+- Copy data to tomcat home dir
+```bash
+cp -r /tmp/apache-tomcat-10.1.26/* /usr/local/tomcat/
+```
+- Make tomcat user owner of tomcat home dir
+```bash
+chown -R tomcat.tomcat /usr/local/tomcat
+```
+- Setup systemctl command for tomcat
+- - Create tomcat service file
+```bash
+vi /etc/systemd/system/tomcat.service
+```
+- Update the file with below content
+```
+[Unit]
+Description=Tomcat
+After=network.target
+[Service]
+User=tomcat
+Group=tomcat
+WorkingDirectory=/usr/local/tomcat
+Environment=JAVA_HOME=/usr/lib/jvm/jre
+Environment=CATALINA_PID=/var/tomcat/%i/run/tomcat.pid
+Environment=CATALINA_HOME=/usr/local/tomcat
+Environment=CATALINE_BASE=/usr/local/tomcat
+ExecStart=/usr/local/tomcat/bin/catalina.sh run
+ExecStop=/usr/local/tomcat/bin/shutdown.sh
+RestartSec=10
+Restart=always
+[Install]
+WantedBy=multi-user.target
+```
+- Reload systemd files
+```bash
+systemctl daemon-reload
+```
+- Start & Enable service
+```bash
+systemctl start tomcat
+systemctl enable tomcat
+```
+- Enabling the firewall and allowing port 8080 to access the tomcat
+```bash
+systemctl start firewalld
+systemctl enable firewalld
+firewall-cmd --get-active-zones
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
+firewall-cmd --reload
+```
+
+## CODE BUILD & DEPLOY (app01)
+- Maven Setup
+```bash
+cd /tmp/
+wget https://archive.apache.org/dist/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.zip
+dnf install unzip -y
+unzip apache-maven-3.9.9-bin.zip
+cp -r apache-maven-3.9.9 /usr/local/maven3.9
+export MAVEN_OPTS="-Xmx512m"
+```
+- Download Source code
+```bash
+git clone -b local https://github.com/hkhcoder/vprofile-project.git
+```
+- Update configuration
+```bash
+cd vprofile-project
+dnf install vim -y
+vim src/main/resources/application.properties
+```
+- Update file with backend server details
+- Build code
+- - Run below command inside the repository (vprofile-project)
+```bash
+/usr/local/maven3.9/bin/mvn install
+```
+- Deploy artifact
+```bash
+systemctl stop tomcat
+rm -rf /usr/local/tomcat/webapps/ROOT*
+cp target/vprofile-v2.war /usr/local/tomcat/webapps/ROOT.war
+systemctl start tomcat
+chown tomcat.tomcat /usr/local/tomcat/webapps -R
+systemctl restart tomcat
 ```
 
 ## READ
