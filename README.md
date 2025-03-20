@@ -498,6 +498,55 @@ systemctl start tomcat
 chown tomcat.tomcat /usr/local/tomcat/webapps -R
 systemctl restart tomcat
 ```
+## NGINX SETUP
+- Login to the Nginx vm
+```bash
+vagrant ssh web01
+sudo -i
+```
+- Verify Hosts entry, if entries missing update the it with IP and hostnames
+```bash
+cat /etc/hosts
+```
+- Update OS with latest patches
+```bash
+apt update
+apt upgrade
+```
+- Install nginx
+```bash
+apt install nginx -y
+```
+
+- Create Nginx conf file
+```bash
+vi /etc/nginx/sites-available/vproapp
+```
+- Update with below content
+```
+upstream vproapp {
+server app01:8080;
+}
+server {
+listen 80;
+location / {
+proxy_pass http://vproapp;
+}
+}
+```
+- Remove default nginx conf
+```bash
+rm -rf /etc/nginx/sites-enabled/default
+```
+- Create link to activate website
+```bash
+ln -s /etc/nginx/sites-available/vproapp /etc/nginx/sites-enabled/vproapp
+```
+- Restart Nginx
+```bash
+systemctl restart nginx
+```
+
 
 ## READ
 ```bash
