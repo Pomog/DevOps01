@@ -547,6 +547,37 @@ ln -s /etc/nginx/sites-available/vproapp /etc/nginx/sites-enabled/vproapp
 systemctl restart nginx
 ```
 
+## Websetup
+```bash
+#!/bin/bash
+
+TEMPDIR="/tmp/webfiles"
+URL="https://www.tooplate.com/zip-templates/2132_clean_work.zip"
+
+# sudo dnf clean all
+sudo dnf update
+sudo dnf install wget unzip httpd -y > /dev/null
+
+sudo systemctl start httpd.service
+sudo systemctl enable httpd.service
+
+sudo mkdir p- $TEMPDIR && cd TEMPDIR
+
+wget  $URL > /dev/null
+unzip 2132_clean_work.zip > /dev/null
+sudo cp -r 2132_clean_work/* /var/www/html/
+
+sudo systemctl restart httpd.service
+
+cd /tmp
+rm -rf $TEMPDIR:
+
+sudo systemctl status httpd
+ls /var/www/html/
+
+
+```
+
 
 ## READ
 ```bash
