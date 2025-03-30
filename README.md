@@ -575,9 +575,22 @@ rm -rf $TEMPDIR:
 sudo systemctl status httpd
 ls /var/www/html/
 
-
 ```
+cd /F/DevOps01/BashScripts/scriptingVMs/WindowsAndMacIntel
 
+## ARP Poisoning Traffic Flow
+### **Description:**
+
+In an ARP poisoning attack, the victim's ARP table is manipulated so that the IP address of the gateway (or server) is associated with the MAC address of the attacker (MITM). As a result, when the victim (IP: 10.0.0.2) sends traffic (e.g., a ping to 8.8.8.8), the Ethernet frame is first addressed to the attacker’s MAC (11:22:33:44:55:66) instead of the gateway’s real MAC. The attacker then forwards the packet to the gateway (IP: 8.8.8.8) using the correct MAC address (77:88:99:AA:BB:CC) for that device. This redirection allows the attacker to intercept, modify, or monitor the traffic between the victim and the gateway.
+
+## ipforward
+
+```bash
+sudo: Run as superuser (administrator privileges).
+```
+- ```sysctl```: A utility for viewing and modifying kernel parameters at runtime.
+- ```-w```: Write mode; it sets the parameter value.
+- ```net.ipv4.ipforward=1```: Sets the IP forwarding parameter to 1, enabling the system to route IP packets between interfaces (i.e., turning it into a router).
 
 ## READ
 ```bash
