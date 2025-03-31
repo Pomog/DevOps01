@@ -586,11 +586,43 @@ In an ARP poisoning attack, the victim's ARP table is manipulated so that the IP
 ## ipforward
 
 ```bash
-sudo: Run as superuser (administrator privileges).
+sudo sysctl -w net.ipv4.ipforward=1
 ```
+- ```
 - ```sysctl```: A utility for viewing and modifying kernel parameters at runtime.
 - ```-w```: Write mode; it sets the parameter value.
 - ```net.ipv4.ipforward=1```: Sets the IP forwarding parameter to 1, enabling the system to route IP packets between interfaces (i.e., turning it into a router).
+
+## AWK Cheat Sheet
+```bash
+awk 'pattern { action }' file
+awk '$3 > 100' file.txt
+```
+- Pattern: If omitted, the action applies to every line.
+- Action: If omitted, AWK prints the entire record ($0) by default.
+### Built-in Variables:
+- NR: The current record (line) number.
+- NF: The number of fields in the current record.
+- OFS: Output field separator.
+
+ORS: Output record separator.
+### BEGIN & END Blocks:
+- BEGIN { ... }: Executes before processing input.
+- END { ... }: Executes after processing all input.
+```bash
+awk 'BEGIN { print "Start Processing" } { print $1 } END { print "Done" }' file.txt
+awk -F: -v sum=0 '{ sum += $1 } END { print sum }' file.txt
+```
+```bash
+awk '{
+    total += $3; count++
+} END {
+    if (count > 0)
+        print "Average:", total/count;
+    else
+        print "No data"
+}' numbers.txt
+```
 
 ## READ
 ```bash
