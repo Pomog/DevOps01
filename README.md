@@ -576,8 +576,6 @@ sudo systemctl status httpd
 ls /var/www/html/
 
 ```
-cd /F/DevOps01/BashScripts/scriptingVMs/WindowsAndMacIntel
-
 ## ARP Poisoning Traffic Flow
 ### **Description:**
 
@@ -600,12 +598,13 @@ awk '$3 > 100' file.txt
 ```
 - Pattern: If omitted, the action applies to every line.
 - Action: If omitted, AWK prints the entire record ($0) by default.
+
 ### Built-in Variables:
 - NR: The current record (line) number.
 - NF: The number of fields in the current record.
 - OFS: Output field separator.
+- ORS: Output record separator.
 
-ORS: Output record separator.
 ### BEGIN & END Blocks:
 - BEGIN { ... }: Executes before processing input.
 - END { ... }: Executes after processing all input.
@@ -623,6 +622,8 @@ awk '{
         print "No data"
 }' numbers.txt
 ```
+
+cd /F/DevOps01/BashScripts/scriptingVMs/WindowsAndMacIntel
 
 ## READ
 ```bash
