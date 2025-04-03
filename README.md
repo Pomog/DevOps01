@@ -625,6 +625,32 @@ awk '{
 
 cd /F/DevOps01/BashScripts/scriptingVMs/WindowsAndMacIntel
 
+## Remote Sutup
+```bash
+#!/bin/bash
+
+USR='devops'
+
+while IFS= read -r host; do
+    echo "Processing host: $host"
+
+    # Copy the script to the remote host
+    if scp remote_setup "$USR@$host:/tmp/"; then
+        echo "File copied to $host"
+    else
+        echo "Error copying file to $host"
+        continue
+    fi
+
+    # Make the script executable and run it on the remote host
+    if ssh "$USR@$host" 'chmod +x /tmp/remote_setup && /tmp/remote_setup'; then
+        echo "Script executed successfully on $host"
+    else
+        echo "Error executing script on $host"
+    fi
+done < remotehosts
+```
+
 ## READ
 ```bash
 man 7 signal
