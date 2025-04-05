@@ -651,6 +651,22 @@ while IFS= read -r host; do
 done < remotehosts
 ```
 
+### Debian vs. Red Hat Packaging
+- Debian-based systems rely on dpkg/APT and .deb files
+- Red Hat–based systems rely on rpm/YUM (or DNF) and .rpm files
+
+Debian/Ubuntu might be favored for use in a desktop or development environment.
+Red Hat–based systems (with DNF) are often preferred for stability in server deployments.
+```bash
+#!/bin/bash
+sudo dnf upgrade --refresh -y && sudo dnf autoremove -y && sudo dnf clean all
+sudo dnf install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+mkdir /tmp/test1
+```
+
 ## READ
 ```bash
 man 7 signal

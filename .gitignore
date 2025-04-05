@@ -92,3 +92,4 @@ build/
 .env.*
 secret.*
 credentials.*
+*.pem
