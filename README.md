@@ -667,6 +667,14 @@ sudo systemctl enable httpd
 mkdir /tmp/test1
 ```
 
+### Check the username
+```Vagrantfile
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/stream10"
+  config.vm.box_version = "20250331.0"
+end
+```
+
 ## READ
 ```bash
 man 7 signal
