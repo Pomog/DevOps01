@@ -674,6 +674,20 @@ Vagrant.configure("2") do |config|
   config.vm.box_version = "20250331.0"
 end
 ```
+### AWS CLI
+```PowerShall
+choco install awscli -y
+```
+```bash
+aws configure list
+aws configure
+cat ~/.aws/config
+cat ~/.aws/credentials
+aws sts get-caller-identity
+
+
+```
+
 
 ## READ
 ```bash
