@@ -684,10 +684,51 @@ aws configure
 cat ~/.aws/config
 cat ~/.aws/credentials
 aws sts get-caller-identity
-
-
 ```
 
+## mount a volume AWS
+1. Create and attach a volume to EC2
+2. SSH to the EC2
+3. Mount
+```bash
+fdisk -l
+fdisk /dev/xvdf
+n
+p
+1
+
++3G
+w
+mkfs.ext4 /dev/xvdf1
+mkdir -p /var/lib/mysql
+vim /etc/fstab
+/dev/xvdf1      /var/lib/mysql ext4 defaults 0 0
+mount -a
+df -h
+```
+4. install mariadb-server on Amazon Linux 2023.7.20250331
+```bash
+dnf search mariadb
+dnf install mariadb105-server
+dnf list installed | grep mariadb105
+systemctl start mariadb
+systemctl enable mariadb
+mysql_secure_installation
+```
+5. Create a SNAPSHOT
+```bash
+systemctl stop mariadb
+cd /
+umount /var/lib/mysql/ 
+fdisk -l
+```
+- Detach the volume on AWS
+- Create a new volume from the SNAPSHOT
+- Attach the volume
+- mount the volume
+```bash
+mount -a
+```
 
 ## READ
 ```bash
