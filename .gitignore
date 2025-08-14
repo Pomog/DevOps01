@@ -93,3 +93,19 @@ build/
 secret.*
 credentials.*
 *.pem
+
+# ---------------------
+# keys
+# ---------------------
+# SSH private keys (never commit these)
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.pem
+*.ppk
+*.key
+
+# If you keep a .ssh folder inside the repo (not recommended)
+.ssh/*
+!.ssh/*.pub
